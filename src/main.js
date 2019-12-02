@@ -19,6 +19,12 @@ export const optionsModel = {
 export default async function createService(options = optionsModel) {
   try {
     const { dir, name, Name } = options;
+
+    // Verify if folder is a node project
+    const packageFile = path.join(dir, "package.json");
+    const isPackageFile = fs.existsSync(packageFile);
+    if (!isPackageFile) throw "Current folder isn't a Node project";
+
     // Folders
     const modelsFolder = path.join(dir, "models");
     const controllersFolder = path.join(dir, "controllers");
@@ -58,14 +64,12 @@ export default async function createService(options = optionsModel) {
     const isGetErrorMessageFileTemplate = fs.existsSync(getErrorMessageFile);
 
     // Create helpers if they aren't exists
-
     if (!isHttpStatusFileTemplate)
       fs.createReadStream(httpStatusFileTemplate).pipe(fs.createWriteStream(httpStatusFile));
     if (!isGetErrorMessageFileTemplate)
       fs.createReadStream(getErrorMessageFileTemplate).pipe(fs.createWriteStream(getErrorMessageFile));
 
     // Load template files
-
     const modelTemplate = fs.readFileSync(modelFileTemplate, "utf8").replace(/{name}/g, name);
     const controllerTemplate = fs
       .readFileSync(controllerFileTemplate, "utf8")
