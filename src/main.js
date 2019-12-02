@@ -44,12 +44,16 @@ export async function initializeProject(options = optionsModel) {
         cwd: options.dir
       });
       console.log("Git initialized");
-      return;
     } catch (error) {
       console.log(error.stderr);
       return;
     }
   }
+  console.log("Resolving packages...");
+  await execa("yarn", ["install"], {
+    cwd: options.dir
+  });
+  console.log("Packages are installed");
   console.log("Project ready. Execute 'create-service [serviceName]' for create a new service");
   return;
 }
