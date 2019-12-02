@@ -25,6 +25,16 @@ function checkInitFiles(dir) {
   return filesToCopy;
 }
 
+function modifyAppJs(dir = "", reference = "", data = "") {
+  const appFile = path.join(dir, "app.js");
+  const f = fs.readFileSync(appFile, "utf8");
+  const i = f.indexOf(reference) + reference.length;
+  const s = f.slice(0, i);
+  const e = f.slice(i);
+  const m = data + "\n";
+  fs.writeFileSync(appFile, s + m + e);
+}
+
 export async function initializeProject(options = optionsModel) {
   const { dir } = options;
   const filesToCopy = checkInitFiles(options.dir);
@@ -127,5 +137,11 @@ export default async function createService(options = optionsModel) {
   fs.writeFileSync(modelFile, modelTemplate);
   fs.writeFileSync(controllerFile, controllerTemplate);
   fs.writeFileSync(routeFile, routeTemplate);
+
+  // Import service in app.js
+  console.log("Adding service to app.js...");
+  modifyAppJs(dir, "// routes\n", `const ${name}Route = require("./routes/${name}.route");`);
+  modifyAppJs(dir, "// paths\n", `app.use("/api/${name}", ${name}Route);`);
+
   console.log(`Service created [${name}]`);
 }

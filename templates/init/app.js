@@ -8,7 +8,7 @@ const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
 
-// const testRoute = require("./routes/test.route");
+// routes
 
 const app = express();
 app.use(helmet());
@@ -32,7 +32,7 @@ mongoose
     console.log(`Connected to ${database.server} database`);
   });
 
-// app.use("/api/test", testRoute);
+// paths
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));
