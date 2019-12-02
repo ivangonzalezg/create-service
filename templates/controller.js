@@ -20,7 +20,7 @@ exports.post = async (req, res) => {
   try {
     const { body } = req;
     const data = await new {Name}(body).save();
-    res.status(httpStatus.OK.code).json({ ...httpStatus.OK.json, data });
+    res.status(httpStatus.CREATED.code).json({ ...httpStatus.CREATED.json, data });
   } catch (error) {
     const message = getErrorMessage(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
