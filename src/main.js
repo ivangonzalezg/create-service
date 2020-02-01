@@ -5,8 +5,8 @@ import execa from "execa";
 const modelFileTemplate = path.join(__dirname, "../templates/model.js");
 const controllerFileTemplate = path.join(__dirname, "../templates/controller.js");
 const routeFileTemplate = path.join(__dirname, "../templates/route.js");
-const getErrorMessageFileTemplate = path.join(__dirname, "../templates/get-error-message.helper.js");
-const httpStatusFileTemplate = path.join(__dirname, "../templates/http-status.helper.js");
+const getErrorMessageFileTemplate = path.join(__dirname, "../templates/getErrorMessage.helper.js");
+const httpStatusFileTemplate = path.join(__dirname, "../templates/httpStatus.helper.js");
 const initFilesTemplates = fs.readdirSync(path.join(__dirname, "../templates/init"));
 
 export const optionsModel = {
