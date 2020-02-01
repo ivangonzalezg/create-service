@@ -84,9 +84,9 @@ export default async function createService(options = optionsModel) {
   console.log(`Creating files for ${name}...`);
 
   // Folders
-  const modelsFolder = path.join(dir, "models");
-  const controllersFolder = path.join(dir, "controllers");
-  const routesFolder = path.join(dir, "routes");
+  const modelsFolder = path.join(dir, "server/models");
+  const controllersFolder = path.join(dir, "server/controllers");
+  const routesFolder = path.join(dir, "server/routes");
 
   // Files
   const modelFile = path.join(modelsFolder, `${name}.model.js`);
@@ -116,8 +116,8 @@ export default async function createService(options = optionsModel) {
   // Helpers exists
   const helpersFolder = path.join(dir, "helpers");
   if (!fs.existsSync(helpersFolder)) fs.mkdirSync(helpersFolder);
-  const httpStatusFile = path.join(dir, "helpers/httpStatus.helper.js");
-  const getErrorMessageFile = path.join(dir, "helpers/getErrorMessage.helper.js");
+  const httpStatusFile = path.join(helpersFolder, "server/httpStatus.helper.js");
+  const getErrorMessageFile = path.join(helpersFolder, "server/getErrorMessage.helper.js");
   const isHttpStatusFileTemplate = fs.existsSync(httpStatusFile);
   const isGetErrorMessageFileTemplate = fs.existsSync(getErrorMessageFile);
 
@@ -140,7 +140,7 @@ export default async function createService(options = optionsModel) {
 
   // Import service in app.js
   console.log("Adding service to app.js...");
-  modifyAppJs(dir, "// routes\n", `const ${name}Route = require("./routes/${name}.route");`);
+  modifyAppJs(dir, "// routes\n", `const ${name}Route = require("./server/routes/${name}.route");`);
   modifyAppJs(dir, "// paths\n", `app.use("/api/${name}", ${name}Route);`);
 
   console.log(`Service created [${name}]`);

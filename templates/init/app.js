@@ -13,7 +13,7 @@ require("dotenv").config();
 const app = express();
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(express.static("public"));
+app.use(express.static("build"));
 app.use(bodyParser.json({ limit: "50mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
@@ -35,7 +35,7 @@ mongoose
 // paths
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/index.html"));
+  res.sendFile(path.join(__dirname, "build/index.html"));
 });
 
 const port = process.env.PORT || 5000;
