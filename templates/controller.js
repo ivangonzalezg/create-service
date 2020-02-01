@@ -29,11 +29,11 @@ exports.post = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const { body } = req;
-    if (!body.id) throw MissingId;
-    const r = await {Name}.findById(body.id);
+    const { id } = req.body;
+    if (!id) throw MissingId;
+    const r = await {Name}.findById(id);
     if (!r) throw IdNotFound;
-    await {Name}.findByIdAndDelete(body.id);
+    await r.remove();
     res.status(httpStatus.OK.code).json({ ...httpStatus.OK.json });
   } catch (error) {
     const message = getErrorMessage(error);
@@ -43,13 +43,10 @@ exports.delete = async (req, res) => {
 
 exports.patch = async (req, res) => {
   try {
-    const { body } = req;
-    const { id, ...params } = body;
+    const { id, ...params } = req.body;
     if (!id) throw MissingId;
-    const r = await {Name}.findById(id);
-    if (!r) throw IdNotFound;
-    const data = await {Name}.updateOne({ _id: id }, { $set: params });
-    res.status(httpStatus.OK.code).json({ ...httpStatus.OK.json, data });
+    await {Name}.updateOne({ _id: id }, { $set: params });
+    res.status(httpStatus.OK.code).json({ ...httpStatus.OK.json });
   } catch (error) {
     const message = getErrorMessage(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
