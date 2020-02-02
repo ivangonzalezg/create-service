@@ -1,6 +1,6 @@
 const {Name} = require("../models/{name}.model");
-const httpStatus = require("../helpers/http-status.helper");
-const getErrorMessage = require("../helpers/get-error-message.helper");
+const httpStatus = require("../helpers/httpStatus.helper");
+const getErrorMessage = require("../helpers/getErrorMessage.helper");
 
 const MissingId = { name: "MissingId" };
 const IdNotFound = { name: "IdNotFound" };

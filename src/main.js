@@ -117,10 +117,10 @@ export default async function createService(options = optionsModel) {
   if (isRouteFile) throw `Route file already exists ${routeFile}`;
 
   // Helpers exists
-  const helpersFolder = path.join(dir, "helpers");
+  const helpersFolder = path.join(dir, "server/helpers");
   if (!fs.existsSync(helpersFolder)) fs.mkdirSync(helpersFolder);
-  const httpStatusFile = path.join(helpersFolder, "server/httpStatus.helper.js");
-  const getErrorMessageFile = path.join(helpersFolder, "server/getErrorMessage.helper.js");
+  const httpStatusFile = path.join(helpersFolder, "httpStatus.helper.js");
+  const getErrorMessageFile = path.join(helpersFolder, "getErrorMessage.helper.js");
   const isHttpStatusFileTemplate = fs.existsSync(httpStatusFile);
   const isGetErrorMessageFileTemplate = fs.existsSync(getErrorMessageFile);
 
