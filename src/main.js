@@ -84,6 +84,7 @@ export default async function createService(options = optionsModel) {
   console.log(`Creating files for ${name}...`);
 
   // Folders
+  const serverFolder = path.join(dir, "server");
   const modelsFolder = path.join(dir, "server/models");
   const controllersFolder = path.join(dir, "server/controllers");
   const routesFolder = path.join(dir, "server/routes");
@@ -94,6 +95,7 @@ export default async function createService(options = optionsModel) {
   const routeFile = path.join(routesFolder, `${name}.route.js`);
 
   // Exist folders
+  const isServerFolder = fs.existsSync(serverFolder);
   const isModelsFolder = fs.existsSync(modelsFolder);
   const isControllersFolder = fs.existsSync(controllersFolder);
   const isRoutesFolder = fs.existsSync(routesFolder);
@@ -104,6 +106,7 @@ export default async function createService(options = optionsModel) {
   const isRouteFile = fs.existsSync(routeFile);
 
   // Create folders if they aren't exists
+  if (!isServerFolder) fs.mkdirSync(serverFolder);
   if (!isModelsFolder) fs.mkdirSync(modelsFolder);
   if (!isControllersFolder) fs.mkdirSync(controllersFolder);
   if (!isRoutesFolder) fs.mkdirSync(routesFolder);
