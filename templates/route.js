@@ -3,7 +3,8 @@ const {name} = require("../controllers/{name}.controller");
 
 router.route("/").get({name}.get);
 router.route("/").post({name}.post);
-router.route("/").delete({name}.delete);
-router.route("/").patch({name}.patch);
+router.route("/:id").get({name}.getById);
+router.route("/:id").delete({name}.delete);
+router.route("/:id").patch({name}.patch);
 
 module.exports = router;
