@@ -44,7 +44,7 @@ exports.patch = async (req, res) => {
     if (!id) throw MissingId;
     const {name} = await {Name}.findById(id);
     if (!{name}) throw IdNotFound;
-    await {name}.update({ $set: req.body }, { runValidators: true });
+    await {name}.updateOne({ $set: req.body }, { runValidators: true });
     return res.status(200).json({ ...httpStatus["200"] });
   } catch (error) {
     const { message, code } = getErrorParams(error);
