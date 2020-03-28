@@ -31,9 +31,9 @@ exports.patch = async (req, res) => {
   try {
     const { id } = req.params;
     if (!id) throw MissingId;
-    const r = await {Name}.findById(id);
-    if (!r) throw IdNotFound;
-    await r.update({ $set: req.body }, { runValidators: true });
+    const {name} = await {Name}.findById(id);
+    if (!{name}) throw IdNotFound;
+    await {name}.update({ $set: req.body }, { runValidators: true });
     return res.status(200).json({ ...httpStatus["200"] });
   } catch (error) {
     const { message, code } = getErrorParams(error);
@@ -45,9 +45,9 @@ exports.delete = async (req, res) => {
   try {
     const { id } = req.body;
     if (!id) throw MissingId;
-    const r = await {Name}.findById(id);
-    if (!r) throw IdNotFound;
-    await r.remove();
+    const {name} = await {Name}.findById(id);
+    if (!{name}) throw IdNotFound;
+    await {name}.remove();
     return res.status(200).json({ ...httpStatus["200"] });
   } catch (error) {
     const { message, code } = getErrorParams(error);
