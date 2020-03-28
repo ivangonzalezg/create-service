@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const {name}Schema = new Schema(
   {
     name: {
-      type: String
+      type: Schema.Types.String,
     }
   },
   {
