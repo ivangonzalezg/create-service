@@ -16,22 +16,22 @@ exports.get = async (req, res) => {
   }
 };
 
-exports.getById = async (req, res) => {
+exports.post = async (req, res) => {
   try {
-    const { id } = req.params;
-    const data = await {Name}.findById(id);
-    return res.status(200).json({ ...httpStatus["200"], data });
+    const { body } = req;
+    const data = await new {Name}(body).save();
+    return res.status(201).json({ ...httpStatus["201"], data });
   } catch (error) {
     const { message, code } = getErrorParams(error);
     return res.status(code).json({ ...httpStatus[code], message });
   }
 };
 
-exports.post = async (req, res) => {
+exports.getById = async (req, res) => {
   try {
-    const { body } = req;
-    const data = await new {Name}(body).save();
-    return res.status(201).json({ ...httpStatus["201"], data });
+    const { id } = req.params;
+    const data = await {Name}.findById(id);
+    return res.status(200).json({ ...httpStatus["200"], data });
   } catch (error) {
     const { message, code } = getErrorParams(error);
     return res.status(code).json({ ...httpStatus[code], message });
