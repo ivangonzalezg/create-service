@@ -8,28 +8,28 @@ function getMongoErrorKey(errmsg) {
   return d;
 }
 
-module.exports = (error = {}) => {
+module.exports = (error = {}, code = 500) => {
   const { name, code, model } = error;
   if (!name) return defaultMessage;
   switch (name) {
     case "ValidationError":
-      return error.errors[Object.keys(error.errors)[0]].message;
+      return { ...error.errors[Object.keys(error.errors)[0]], code };
     case "MongoError":
-      if (code === 11000) return `Duplicate key error: ${getMongoErrorKey(error.errmsg)}`;
+      if (code === 11000) return { message: `Duplicate key error: ${getMongoErrorKey(error.errmsg)}`, code };
       return defaultMessage;
     case "CastError":
-      if (model.modelName) return `${model.modelName} not found`;
+      if (model.modelName) return { message: `${model.modelName} not found`, code };
       return defaultMessage;
     case "IdNotFound":
-      return "Id Not Found";
+      return { message: "Id Not Found", code };
     case "WrongPassword":
-      return "Wrong Password";
+      return { message: "Wrong Password", code };
     case "UserNotFound":
-      return "User Not Found";
+      return { message: "User Not Found", code };
     case "EmialNotFound":
-      return "Email Not Found";
+      return { message: "Email Not Found", code };
     case "UserAlreadyExist":
-      return "User Already Exist";
+      return { message: "User Already Exist", code };
     default:
       return defaultMessage;
   }

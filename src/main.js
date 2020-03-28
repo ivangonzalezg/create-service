@@ -5,7 +5,7 @@ import execa from "execa";
 const modelFileTemplate = path.join(__dirname, "../templates/model.js");
 const controllerFileTemplate = path.join(__dirname, "../templates/controller.js");
 const routeFileTemplate = path.join(__dirname, "../templates/route.js");
-const getErrorMessageFileTemplate = path.join(__dirname, "../templates/getErrorMessage.helper.js");
+const getErrorParamsFileTemplate = path.join(__dirname, "../templates/getErrorParams.helper.js");
 const httpStatusFileTemplate = path.join(__dirname, "../templates/httpStatus.helper.js");
 const initFilesTemplates = fs.readdirSync(path.join(__dirname, "../templates/init"));
 
@@ -120,13 +120,13 @@ export default async function createService(options = optionsModel) {
   const helpersFolder = path.join(dir, "server/helpers");
   if (!fs.existsSync(helpersFolder)) fs.mkdirSync(helpersFolder);
   const httpStatusFile = path.join(helpersFolder, "httpStatus.helper.js");
-  const getErrorMessageFile = path.join(helpersFolder, "getErrorMessage.helper.js");
+  const getErrorParamsFile = path.join(helpersFolder, "getErrorParams.helper.js");
   const isHttpStatusFileTemplate = fs.existsSync(httpStatusFile);
-  const isGetErrorMessageFileTemplate = fs.existsSync(getErrorMessageFile);
+  const isgetErrorParamsFileTemplate = fs.existsSync(getErrorParamsFile);
 
   // Create helpers if they aren't exists
   if (!isHttpStatusFileTemplate) fs.createReadStream(httpStatusFileTemplate).pipe(fs.createWriteStream(httpStatusFile));
-  if (!isGetErrorMessageFileTemplate) fs.createReadStream(getErrorMessageFileTemplate).pipe(fs.createWriteStream(getErrorMessageFile));
+  if (!isgetErrorParamsFileTemplate) fs.createReadStream(getErrorParamsFileTemplate).pipe(fs.createWriteStream(getErrorParamsFile));
 
   // Load template files
   const modelTemplate = fs.readFileSync(modelFileTemplate, "utf8").replace(/{name}/g, name);
